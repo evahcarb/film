@@ -75,16 +75,4 @@ public class Film {
         this.reviews = reviews;
     }
 
-    @Override
-    public String toString() {
-        return "Film{" +
-                "idFilm=" + idFilm +
-                ", name='" + name + '\'' +
-                ", year='" + year + '\'' +
-                ", director='" + director + '\'' +
-                ", synopsis='" + synopsis + '\'' +
-                ", ranking=" + ranking +
-                ", reviews='" + reviews + '\'' +
-                '}';
-    }
 }

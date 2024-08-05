@@ -1,11 +1,15 @@
 package src.main.java.com.film.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import src.main.java.com.film.models.Film;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @RestController
 public class FilmController {
@@ -20,4 +24,56 @@ public class FilmController {
 
     @GetMapping("/films")
     public List<Film> getAllFilms(){return films;}
+
+     @GetMapping("/films/{id}")
+    public Film getFilmId(@PathVariable ("id") int id){
+         for (Film i : films) {
+             if(i.getIdFilm() == id){
+                 return i;
+             }
+
+         }
+         return null;
+     }
+
+    @GetMapping("/films/name/{name}")
+    public List<Film> getFilmName(@PathVariable("name") String name) {
+        List<Film> matchingFilms = new ArrayList<>();
+        for (Film film : films) {
+            if (film.getName().equals(name)) {
+                matchingFilms.add(film);
+            }
+        }
+
+        return matchingFilms;
+    }
+
+    @GetMapping("/films/director/{director}")
+    public List <Film> getFilmDirector (@PathVariable("director") String director){
+        return films.stream()
+                .filter(i -> i.getDirector().equals(director))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/films/ranking/{ranking}")
+    public List <Film> getFilmRanking (@PathVariable("ranking")double ranking){
+        List <Film> rankingFilms=new ArrayList<>();
+        for(Film i:films){
+            if(i.getRanking() >= ranking){
+                rankingFilms.add(i);
+            }
+        }
+        return rankingFilms;
+    }
+
+    @GetMapping("/films/year/{year}")
+    public List <Film> getFilmYear(@PathVariable("year")double year){
+        List <Film> yearFilms=new ArrayList<>();
+        for(Film i:films){
+            if(i.getYear() == year){
+                yearFilms.add(i);
+            }
+        }
+        return yearFilms;
+    }
 }
