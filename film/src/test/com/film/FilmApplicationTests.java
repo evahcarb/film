@@ -1,4 +1,4 @@
-package src.test.java.com.film;
+package com.film;
 
 
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package src.main.java.com.film.models;
+package com.film.models;
 
 public class Film {
     private int idFilm;
@@ -8,6 +8,9 @@ public class Film {
     private String synopsis;
     private double ranking;
     private String reviews;
+
+    public Film() {
+    }
 
     public Film(int idFilm, String name, String director, String synopsis, double ranking, String reviews, int year) {
         this.idFilm = idFilm;

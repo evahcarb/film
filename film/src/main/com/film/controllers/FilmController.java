@@ -1,13 +1,11 @@
-package src.main.java.com.film.controllers;
+package com.film.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import src.main.java.com.film.models.Film;
+import com.film.models.Film;
+import com.film.models.Response;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -75,5 +73,41 @@ public class FilmController {
             }
         }
         return yearFilms;
+    }
+
+    @PostMapping("/films")
+    public Response saveFilms(@RequestBody Film film) {
+        Response response = new Response();
+        films.add(film);
+        response.setStatus(200);
+        response.setMessage("I save a movie with id " + film.getIdFilm() + " and title " + film.getName());
+        return response;
+    }
+
+    @PutMapping("/films/{id}")
+    public String updateFilm(@PathVariable("id") Integer id, @RequestBody Film film) {
+        for (Film i : films) {
+            if (i.getIdFilm() == id) {
+                i.setName(film.getName());
+                i.setDirector(film.getDirector());
+                i.setSynopsis(film.getSynopsis());
+                i.setRanking(film.getRanking());
+                i.setReviews(film.getReviews());
+                i.setYear(film.getYear());
+                return "You updated Film: Id: " + film.getIdFilm() + " with the new Name: " + film.getName();
+            }
+        }
+        return "Film with Id: " + id + " not found.";
+    }
+
+    @DeleteMapping("/films/{id}")
+    public String deleteFilm(@PathVariable("id") Integer id) {
+        for (Film i : films) {
+            if (i.getIdFilm() == id) {
+                films.remove(i);
+                return "Film with Id: " + id + " has been deleted";
+            }
+        }
+        return "Film with Id: " + id + " not found.";
     }
 }
