@@ -1,6 +1,11 @@
 package com.film.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "films")
 public class Film {
+    @Id
     private int idFilm;
     private String name;
     private int year;

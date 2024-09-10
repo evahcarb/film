@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: films
+  data:
+    mongodb:
+      uri: mongodb://localhost:30000/filmsdb
